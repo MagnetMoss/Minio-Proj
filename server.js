@@ -1,21 +1,40 @@
-const expri = require("express");
-const routes = require("path");
+const express = require("express");
+// ONLY USED TO JOIN WITH RELATIVE PATH - PROBABLY DONT NEED THIS?
+const path = require("path");
 const mysql = require('mysql2');
-const db = require(`./db/db.json`);
+
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
-app.use(express.static("public"));
+const database = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'password',
+    database: 'movie_reviews_db'
+},
+console.log(`Connected to the movie_reviews_db`));
 
-app.get("/", (req, res) => res.send("Navigate to /send or /routes"));
+app.get("/api/movies", (req, res) => {
+  // GET all movies from the DB
 
-app.get("/send", (req, res) =>
-  res.sendFile(path.join(__dirname, "public/send.html"))
-);
+});
 
-app.get("/paths", (req, res) =>
-  res.sendFile(path.join(__dirname, "public/paths.html"))
-);
+app.post("/api/add-movie", (req, res) => {
+  // POST request to add a movie to the Database
+
+});
+
+app.post("/api/update-review", (req, res) => {
+  // POST request to update review
+});
+
+app.get("/api/movie/:id", (req, res) => {
+  // GET movie BY ID
+
+  // The ID of a movie in the databsea
+  let selectedID = req.params
+
+});
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
