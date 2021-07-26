@@ -32,7 +32,6 @@ app.post("/api/add-movie", (req, res) => {
   });
 
   res.send(movie_name + 'has been added to the database.');
-
 });
 
 app.post("/api/update-review", (req, res) => {
@@ -42,7 +41,6 @@ app.post("/api/update-review", (req, res) => {
   if (req.body && movie_id && review && typeof review === 'string' ) {
     // POST DEBUGGER
     console.log(`${req.method} request: Attempting to update review ID = "${movie_id}"`);
-
     // UPDATE reviews SET review = "${review}" WHERE id = ${movie_id}
 
     database.query(`UPDATE reviews SET review = ? WHERE id = ?`,[review, movie_id] , (err, results) => {
@@ -58,7 +56,6 @@ app.post("/api/update-review", (req, res) => {
   } else {
     res.send('Error updating review: parameters set incorrectly');
   }
-
 });
 
 app.delete("/api/movie/:id", (req, res) => {
