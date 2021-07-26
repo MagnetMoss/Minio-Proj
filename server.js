@@ -1,7 +1,7 @@
 const express = require("express");
+const mysql = require('mysql2');
 // ONLY USED TO JOIN WITH RELATIVE PATH - PROBABLY DONT NEED THIS?
 const path = require("path");
-const mysql = require('mysql2');
 
 // Separate DB Config file
 const dbconfig = require('./config/dbconfig');
@@ -24,12 +24,14 @@ app.post("/api/update-review", (req, res) => {
   // POST request to update review
 });
 
-app.get("/api/movie/:id", (req, res) => {
+app.delete("/api/movie/:id", (req, res) => {
   // GET movie BY ID
-
-  // The ID of a movie in the databsea
-  let selectedID = req.params
-
+  // The ID of a movie in the databse
+  let selectedID = req.params.id;
+  database.query('DELETE FROM movies WHERE id=?',[selectedID], (err, result, fields) => {
+    if(err) console.log(err);
+  });
+  res.send('Movie Deleted');
 });
 
 app.listen(PORT, () =>
