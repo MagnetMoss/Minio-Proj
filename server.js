@@ -1,5 +1,6 @@
 const expri = require("express");
 const routes = require("path");
+const mysql = require('mysql2');
 const db = require(`./db/db.json`);
 const app = express();
 const PORT = 3001;
