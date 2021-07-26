@@ -14,6 +14,9 @@ const database = mysql.createConnection({
 },
 console.log(`Connected to the movie_reviews_db`));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/api/movies", (req, res) => {
   // GET all movies from the DB
 
@@ -21,6 +24,13 @@ app.get("/api/movies", (req, res) => {
 
 app.post("/api/add-movie", (req, res) => {
   // POST request to add a movie to the Database
+  const { movie_name } = req.body
+  
+  database.query('INSERT INTO movies (movie_name) VALUES (?);',[movie_name], (err,result,fields) => {
+    if(err) console.log(err);
+  });
+
+  res.send(movie_name + 'has been added to the database.');
 
 });
 
