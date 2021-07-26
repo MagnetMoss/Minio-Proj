@@ -5,18 +5,28 @@ const path = require("path");
 
 // Separate DB Config file
 const dbconfig = require('./config/dbconfig');
-const database = dbconfig.database;
+const database = mysql.createConnection(dbconfig.database);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.get("/api/movies", (req, res) => {
   // GET all movies from the DB
-
+  database.query('SELECT * FROM movies',(err,results,fields) => {
+    if(err) console.log(err);
+    res.send(results);
+  });
 });
 
 app.post("/api/add-movie", (req, res) => {
   // POST request to add a movie to the Database
+  const { movie_name } = req.body
+  
+  database.query('INSERT INTO movies (movie_name) VALUES (?);',[movie_name], (err,result,fields) => {
+    if(err) console.log(err);
+  });
+
+  res.send(movie_name + 'has been added to the database.');
 
 });
 
