@@ -5,7 +5,7 @@ const path = require("path");
 
 // Separate DB Config file
 const dbconfig = require('./config/dbconfig');
-const database = dbconfig.database;
+const database = mysql.createConnection(dbconfig.database);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
