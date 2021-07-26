@@ -3,16 +3,12 @@ const express = require("express");
 const path = require("path");
 const mysql = require('mysql2');
 
+// Separate DB Config file
+const dbconfig = require('./config/dbconfig');
+const database = dbconfig.database;
+
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-const database = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'movie_reviews_db'
-},
-console.log(`Connected to the movie_reviews_db`));
 
 app.get("/api/movies", (req, res) => {
   // GET all movies from the DB
