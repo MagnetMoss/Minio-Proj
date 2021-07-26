@@ -9,6 +9,8 @@ const database = mysql.createConnection(dbconfig.database);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -36,18 +38,19 @@ app.post("/api/update-review", (req, res) => {
   // POST request to update review
   const { movie_id, review } = req.body;
 
-  if (req.body && movie_id && review) {
+  if (req.body && movie_id && review && typeof review === 'string' ) {
     // POST DEBUGGER
     console.log(`${req.method} request: Attempting to update review ID = "${movie_id}"`);
     // UPDATE reviews SET review = "${review}" WHERE id = ${movie_id}
-    database.query(`UPDATE reviews SET review = "${review}" WHERE id = ${movie_id}`, (err, results) => {
+
+    database.query(`UPDATE reviews SET review = ? WHERE id = ?`,[review, movie_id] , (err, results) => {
       if(err){
         console.log(err);
         res.send(err);
       }
       else {
         console.log( results );
-        res.send(`Update successful! ${results}`);
+        res.send(`Update successful!`);
       }
     });
   } else {
