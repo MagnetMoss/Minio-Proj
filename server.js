@@ -3,19 +3,12 @@ const mysql = require('mysql2');
 // ONLY USED TO JOIN WITH RELATIVE PATH - PROBABLY DONT NEED THIS?
 const path = require("path");
 
+// Separate DB Config file
+const dbconfig = require('./config/dbconfig');
+const database = dbconfig.database;
+
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-const database = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'movie_reviews_db'
-},
-console.log(`Connected to the movie_reviews_db`));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/movies", (req, res) => {
   // GET all movies from the DB
