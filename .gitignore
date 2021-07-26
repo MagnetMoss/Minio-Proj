@@ -107,3 +107,4 @@ dist
 
 # config/
 config/
+config/dbconfig.js
