@@ -1,6 +1,6 @@
 // Change these variables only
 const databaseName = "movie_reviews_db";
-const independentPW = "password"
+const independentPW = "ThisIsMySq1!"
 console.log(`Connected to database: ${databaseName}`);
 
 // Once those variables are changed, instantiate this connection via:

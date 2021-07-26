@@ -15,9 +15,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/movies", (req, res) => {
-  // GET all movies from the DB
-  database.query('SELECT * FROM movies',(err,results,fields) => {
+app.get("/api/movies/:type?/:val?", (req, res) => {
+
+  const specificType = req.params.type;
+  const specificVal = req.params.val;
+  let dynamicQuery = `SELECT * FROM movies`;
+
+  /** DYNAMIC QUERY CONCATENATION **/
+  if(specificType && specificVal){
+    // DEBUG
+    // res.send(`Requesting movie with ${specificType} of ${specificVal}`);
+
+    if(specificType == "movie_name" && typeof specificVal === 'string'){
+      dynamicQuery += ` WHERE ${specificType} = "${specificVal}"`;
+    }
+    else if( specificType == "id" &&  typeof specificVal === 'number' ){
+      dynamicQuery += ` WHERE ${specificType} = ${specificVal}`;
+    }
+  }
+  dynamicQuery += `;`;
+  /*********************************/
+
+  // GET movies from the DB
+  database.query( dynamicQuery,(err,results,fields) => {
     if(err) console.log(err);
     res.send(results);
   });
