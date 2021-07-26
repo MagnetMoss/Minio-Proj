@@ -22,6 +22,28 @@ app.post("/api/add-movie", (req, res) => {
 
 app.post("/api/update-review", (req, res) => {
   // POST request to update review
+  const { movie_id, review } = req.body;
+
+  if (req.body && movie_id && review) {
+    // POST DEBUGGER
+    console.log(`${req.method} request: Attempting to update review ID = "${movie_id}"`);
+
+    // UPDATE reviews SET review = "${review}" WHERE id = ${movie_id}
+
+    database.query(`UPDATE reviews SET review = "${review}" WHERE id = ${movie_id}`, (err, results) => {
+      if(err){
+        console.log(err);
+        res.error(err);
+      }
+      else {
+        console.log( results );
+        res.send(`Update successful! ${results}`);
+      }
+    });
+  } else {
+    res.error('Error updating review: parameters set incorrectly');
+  }
+
 });
 
 app.delete("/api/movie/:id", (req, res) => {
