@@ -10,6 +10,9 @@ const database = mysql.createConnection(dbconfig.database);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/api/movies", (req, res) => {
   // GET all movies from the DB
   database.query('SELECT * FROM movies',(err,results,fields) => {
