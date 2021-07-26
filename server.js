@@ -19,7 +19,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/movies", (req, res) => {
   // GET all movies from the DB
-
+  database.query('SELECT * FROM movies',(err,results,fields) => {
+    if(err) console.log(err);
+    res.send(results);
+  });
 });
 
 app.post("/api/add-movie", (req, res) => {
