@@ -1,6 +1,6 @@
 // Change these variables only
-const databaseName = "dbname";
-const independentPW = "password"
+const databaseName = "movie_reviews_db";
+const independentPW = "ThisIsMySq1!"
 console.log(`Connected to database: ${databaseName}`);
 
 // Once those variables are changed, instantiate this connection via:
@@ -16,5 +16,5 @@ module.exports = {
     }
 };
 
-// then add this line (uncommented) to your .gitignore:
+// then add this line (uncommented) to your gitignore:
 //      config/
